@@ -1,0 +1,199 @@
+1.boolean isAnagram(String s, String t) {
+    if (s.length() != t.length()) return false;
+    int[] count = new int[26];
+    for (char c : s.toCharArray()) count[c - 'a']++;
+    for (char c : t.toCharArray()) count[c - 'a']--;
+    for (int i : count) if (i != 0) return false;
+    return true;
+}
+3. Teemo Attack - Poison Duration
+int findPoisonedDuration(int[] timeSeries, int duration) {
+    int total = 0;
+    for (int i = 0; i < timeSeries.length; i++) {
+        if (i == timeSeries.length - 1) total += duration;
+        else total += Math.min(duration, timeSeries[i + 1] - timeSeries[i]);
+    }
+    return total;
+}
+4. Text Compression (Run-Length Encoding)
+static class Task {
+
+    public int compress(char[] chars) {
+        int write = 0;
+        int i = 0;
+
+        while (i < chars.length) {
+            char current = chars[i];
+            int count = 0;
+
+            while (i < chars.length && chars[i] == current) {
+                i++;
+                count++;
+            }
+
+            chars[write++] = current;
+
+            if (count > 1) {
+                String s = count + "";
+                for (char c : s.toCharArray()) {
+                    chars[write++] = c;
+                }
+            }
+        }
+
+        return write;
+    }
+}
+5. Building the Queue Structure
+class Queue {
+    int[] arr = new int[100];
+    int front = 0, rear = 0;
+
+    void enqueue(int x) {
+        arr[rear++] = x;
+    }
+
+    int dequeue() {
+        return arr[front++];
+    }
+} 
+6. Generating Pascal’s Triangle
+List<List<Integer>> generate(int numRows) {
+    List<List<Integer>> res = new ArrayList<>();
+    for (int i = 0; i < numRows; i++) {
+        List<Integer> row = new ArrayList<>();
+        for (int j = 0; j <= i; j++) {
+            if (j == 0 || j == i) row.add(1);
+            else row.add(res.get(i - 1).get(j - 1) + res.get(i - 1).get(j));
+        }
+        res.add(row);
+    }
+    return res;
+}
+7. Caesar Cipher Encryption
+String caesar(String s, int shift) {
+    String res = "";
+    for (char c : s.toCharArray()) {
+        if (Character.isLetter(c)) {
+            char base = Character.isLowerCase(c) ? 'a' : 'A';
+            c = (char)((c - base + shift) % 26 + base);
+        }
+        res += c;
+    }
+    return res;
+}
+8. Gas Station
+int canCompleteCircuit(int[] gas, int[] cost) {
+    int total = 0, tank = 0, start = 0;
+    for (int i = 0; i < gas.length; i++) {
+        int diff = gas[i] - cost[i];
+        total += diff;
+        tank += diff;
+        if (tank < 0) {
+            tank = 0;
+            start = i + 1;
+        }
+    }
+    return total >= 0 ? start : -1;
+}
+9. Password Combination Generation
+static class SafeTask {
+
+    public java.util.List<String> findCodes(String digits, int length) {
+        java.util.List<String> res = new java.util.ArrayList<>();
+        generate(digits, length, "", res);
+        return res;
+    }
+
+    private void generate(String digits, int length, String current, java.util.List<String> res) {
+        if (current.length() == length) {
+            res.add(current);
+            return;
+        }
+
+        for (int i = 0; i < digits.length(); i++) {
+            generate(digits, length, current + digits.charAt(i), res);
+        }
+    }
+}
+10. Stack: Parentheses Balance
+boolean isValid(String s) {
+    Stack<Character> stack = new Stack<>();
+    for (char c : s.toCharArray()) {
+        if (c == '(') stack.push(c);
+        else if (c == ')') {
+            if (stack.isEmpty()) return false;
+            stack.pop();
+        }
+    }
+    return stack.isEmpty();
+}
+11. Longest Common Prefix
+String longestCommonPrefix(String[] strs) {
+    String prefix = strs[0];
+    for (int i = 1; i < strs.length; i++) {
+        while (!strs[i].startsWith(prefix)) {
+            prefix = prefix.substring(0, prefix.length() - 1);
+        }
+    }
+    return prefix;
+}
+12. First Unique Character
+int firstUniqChar(String s) {
+    int[] count = new int[26];
+    for (char c : s.toCharArray()) count[c - 'a']++;
+    for (int i = 0; i < s.length(); i++) {
+        if (count[s.charAt(i) - 'a'] == 1) return i;
+    }
+    return -1;
+}
+14. ATM - Payment
+static class ATMTask {
+
+    public String calculateATM(int amount) {
+        int[] notes = {100, 50, 20, 10, 5, 1};
+        StringBuilder res = new StringBuilder();
+
+        for (int n : notes) {
+            while (amount >= n) {
+                res.append(n).append(",");
+                amount -= n;
+            }
+        }
+
+        if (res.length() > 0) {
+            res.setLength(res.length() - 1);
+        }
+
+        return res.toString();
+    }
+}
+15. Linked List: Middle Element
+static class MiddleNodeTask {
+
+    public int findMiddle(Node head) {
+        if (head == null) return -1;
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow.data;
+    }
+}
+16. Validating a Mountain Array
+boolean validMountainArray(int[] arr) {
+    int i = 0, n = arr.length;
+
+    while (i + 1 < n && arr[i] < arr[i + 1]) i++;
+    if (i == 0 || i == n - 1) return false;
+
+    while (i + 1 < n && arr[i] > arr[i + 1]) i++;
+
+    return i == n - 1;
+}
+
