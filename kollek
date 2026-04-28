@@ -45,18 +45,22 @@ static class Task {
     }
 }
 5. Building the Queue Structure
-class Queue {
+static class MyQueue {
     int[] arr = new int[100];
     int front = 0, rear = 0;
 
-    void enqueue(int x) {
+    public void enqueue(int x) {
         arr[rear++] = x;
     }
 
-    int dequeue() {
-        return arr[front++];
+    public int dequeue() {
+        return (front == rear) ? -1 : arr[front++];
     }
-} 
+
+    public int peek() {
+        return (front == rear) ? -1 : arr[front];
+    }
+}
 6. Generating Pascal’s Triangle
 List<List<Integer>> generate(int numRows) {
     List<List<Integer>> res = new ArrayList<>();
