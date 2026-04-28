@@ -1,3 +1,4 @@
+(205-ci setrden 3 balliqlar basliyir 1.RPN,2CYCLEDETECTION,3UNIQUERANDOMARRAY,4MAXSUBBARAY,5CONTAINERWATER,6.SPRIALMATRIX,7.CoinChange)
 1.boolean isAnagram(String s, String t) {
     if (s.length() != t.length()) return false;
     int[] count = new int[26];
@@ -201,3 +202,152 @@ boolean validMountainArray(int[] arr) {
     return i == n - 1;
 }
 
+-----------------------------------
+3balliqlar:
+RPN
+1.static class RPNTask {
+
+    public int evalRPN(String[] tokens) {
+        java.util.Stack<Integer> st = new java.util.Stack<>();
+
+        for (String s : tokens) {
+            if (s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/")) {
+                int b = st.pop();
+                int a = st.pop();
+
+                if (s.equals("+")) st.push(a + b);
+                else if (s.equals("-")) st.push(a - b);
+                else if (s.equals("*")) st.push(a * b);
+                else st.push(a / b);
+            } else {
+                st.push(Integer.parseInt(s));
+            }
+        }
+
+        return st.pop();
+    }
+}
+2.CYCLE DETECION
+static class ListTask {
+
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            if (slow == fast) return true;
+
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return false;
+    }
+}
+3. Unique Random Array
+static class RandomTask {
+
+    public int[] generateUniqueArray(int n) {
+        int[] result = new int[n];
+        boolean[] used = new boolean[n + 1];
+        java.util.Random r = new java.util.Random();
+
+        for (int i = 0; i < n; i++) {
+            int x = r.nextInt(n) + 1;
+
+            while (used[x]) {
+                x = r.nextInt(n) + 1;
+            }
+
+            result[i] = x;
+            used[x] = true;
+        }
+
+        return result;
+    }
+}
+4. Maximum Product Subarray
+static class Task {
+
+    public int maxProduct(int[] nums) {
+        int max = nums[0], min = nums[0], res = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            int temp = max;
+
+            max = Math.max(nums[i], Math.max(max * nums[i], min * nums[i]));
+            min = Math.min(nums[i], Math.min(temp * nums[i], min * nums[i]));
+
+            if (max > res) res = max;
+        }
+
+        return res;
+    }
+}
+5. Container With Most Water
+static class WaterTask {
+
+    public int maxArea(int[] height) {
+        int l = 0, r = height.length - 1;
+        int max = 0;
+
+        while (l < r) {
+            int area = Math.min(height[l], height[r]) * (r - l);
+            if (area > max) max = area;
+
+            if (height[l] < height[r]) l++;
+            else r--;
+        }
+
+        return max;
+    }
+}
+6. Spiral Matrix
+static class MatrixTask {
+
+    public int[][] generateMatrix(int n) {
+        int[][] a = new int[n][n];
+
+        int top = 0, bottom = n - 1;
+        int left = 0, right = n - 1;
+        int num = 1;
+
+        while (true) {
+            for (int i = left; i <= right; i++) a[top][i] = num++;
+            if (++top > bottom) break;
+
+            for (int i = top; i <= bottom; i++) a[i][right] = num++;
+            if (--right < left) break;
+
+            for (int i = right; i >= left; i--) a[bottom][i] = num++;
+            if (--bottom < top) break;
+
+            for (int i = bottom; i >= top; i--) a[i][left] = num++;
+            if (++left > right) break;
+        }
+
+        return a;
+    }
+}
+7. Coin Change (100% düzgün)
+static class Task {
+
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+
+        java.util.Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+
+        for (int i = 1; i <= amount; i++) {
+            for (int c : coins) {
+                if (i >= c) {
+                    dp[i] = Math.min(dp[i], dp[i - c] + 1);
+                }
+            }
+        }
+
+        return dp[amount] == amount + 1 ? -1 : dp[amount];
+    }
+}
