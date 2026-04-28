@@ -1,4 +1,4 @@
-(205-ci setrden 3 balliqlar basliyir 1.RPN,2CYCLEDETECTION,3UNIQUERANDOMARRAY,4MAXSUBBARAY,5CONTAINERWATER,6.SPRIALMATRIX,7.CoinChange)
+(229-ci setrden 3 balliqlar basliyir 1.RPN,2CYCLEDETECTION,3UNIQUERANDOMARRAY,4MAXSUBBARAY,5CONTAINERWATER,6.SPRIALMATRIX,7.CoinChange)
 1.boolean isAnagram(String s, String t) {
     if (s.length() != t.length()) return false;
     int[] count = new int[26];
@@ -7,6 +7,18 @@
     for (int i : count) if (i != 0) return false;
     return true;
 }
+2.Find the points closed to target
+static class PriorityTask {
+    public List<Integer> findClosest(int[] nums, int k, int target) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(
+            (a, b) -> Math.abs(a - target) - Math.abs(b - target)
+        );
+        for (int num : nums) pq.add(num);
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < k; i++) result.add(pq.poll());
+        return result;
+    }  }
+
 3. Teemo Attack - Poison Duration
 int findPoisonedDuration(int[] timeSeries, int duration) {
     int total = 0;
@@ -201,6 +213,18 @@ boolean validMountainArray(int[] arr) {
 
     return i == n - 1;
 }
+17.FindHighesValue
+static class PriorityTask {
+    public List<Integer> getTopK(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();        
+        for (int num : nums) {
+            pq.add(num);            
+            if (pq.size() > k) pq.poll();    }        
+        LinkedList<Integer> result = new LinkedList<>();
+        while (!pq.isEmpty()) {
+            result.addFirst(pq.poll());    }        
+        return result; 
+    } }
 
 -----------------------------------
 3balliqlar:
