@@ -1,540 +1,2379 @@
-(308-ci setrden 3 balliqlar basliyir 1.RPN,2CYCLEDETECTION,3UNIQUERANDOMARRAY,4MAXSUBBARAY,5CONTAINERWATER,6.SPRIALMATRIX,7.CoinChange)
-1.boolean isAnagram(String s, String t) {
-    if (s.length() != t.length()) return false;
-    int[] count = new int[26];
-    for (char c : s.toCharArray()) count[c - 'a']++;
-    for (char c : t.toCharArray()) count[c - 'a']--;
-    for (int i : count) if (i != 0) return false;
-    return true;
-}
-2.Find the points closed to target
-static class PriorityTask {
-    public List<Integer> findClosest(int[] nums, int k, int target) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>(
-            (a, b) -> Math.abs(a - target) - Math.abs(b - target)
-        );
-        for (int num : nums) pq.add(num);
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < k; i++) result.add(pq.poll());
-        return result;
-    }  }
+1. What is the purpose of HTML in web development?
+HTML (HyperText Markup Language) is used to create the structure of a webpage. It organizes content such as text, images, links, and forms. HTML is the foundation of every website. Without HTML, a webpage cannot display content correctly. Browsers read HTML code and show it to users.
 
-3. Teemo Attack - Poison Duration
-int findPoisonedDuration(int[] timeSeries, int duration) {
-    int total = 0;
-    for (int i = 0; i < timeSeries.length; i++) {
-        if (i == timeSeries.length - 1) total += duration;
-        else total += Math.min(duration, timeSeries[i + 1] - timeSeries[i]);
-    }
-    return total;
-}
-4. Text Compression (Run-Length Encoding)
-static class Task {
+2. Explain the difference between semantic and non-semantic HTML tags.
+Semantic tags describe the meaning of content, such as <header> and <article>. Non-semantic tags like <div> and <span> do not describe content. Semantic tags make code easier to understand. They also help search engines and screen readers understand the webpage better.
 
-    public int compress(char[] chars) {
-        int write = 0;
-        int i = 0;
+3. What is the Document Object Model (DOM)?
+The DOM is a tree-like structure created from an HTML document. JavaScript can access and modify the DOM. Developers use it to change content, styles, and elements dynamically. It makes webpages interactive and responsive to user actions.
 
-        while (i < chars.length) {
-            char current = chars[i];
-            int count = 0;
+4. What is the difference between <div> and <span> elements?
+<div> is a block-level element that starts on a new line. <span> is an inline element that stays within a line of text. Both are often used for styling with CSS. They do not have special meanings by themselves.
 
-            while (i < chars.length && chars[i] == current) {
-                i++;
-                count++;
-            }
+5. Explain the purpose of the <form> element.
+The <form> element collects information from users. It can contain text boxes, buttons, and checkboxes. Forms are commonly used for login pages and registration pages. The collected data can be sent to a server for processing.
 
-            chars[write++] = current;
+6. What are HTML attributes? Give examples.
+Attributes provide extra information about HTML elements. Examples include href, src, id, and class. Attributes are written inside the opening tag. They help control the behavior and appearance of elements.
 
-            if (count > 1) {
-                String s = count + "";
-                for (char c : s.toCharArray()) {
-                    chars[write++] = c;
-                }
-            }
-        }
+7. Explain the difference between absolute and relative URLs.
+An absolute URL contains the full web address. A relative URL contains only the path to a resource. Absolute URLs can work from any location. Relative URLs are shorter and often used within the same website.
 
-        return write;
-    }
-}
-5. Building the Queue Structure
-static class MyQueue {
-    int[] arr = new int[100];
-    int front = 0, rear = 0;
+8. What is the purpose of the <meta> tag?
+The <meta> tag provides information about a webpage. It is placed inside the <head> section. Meta tags can define the character set and page description. They are also important for search engines and mobile devices.
 
-    public void enqueue(int x) {
-        arr[rear++] = x;
-    }
+9. What are HTML5 semantic elements and why are they important?
+HTML5 semantic elements include <header>, <nav>, <section>, and <footer>. They clearly describe the purpose of content. This makes webpages easier to maintain and understand. They also improve accessibility and SEO.
 
-    public int dequeue() {
-        return (front == rear) ? -1 : arr[front++];
-    }
+10. Explain the difference between GET and POST methods.
+GET sends data through the URL. POST sends data in the request body. GET is usually used for retrieving information. POST is safer for sending passwords and personal data.
 
-    public int peek() {
-        return (front == rear) ? -1 : arr[front];
-    }
-}
-6. Generating Pascal’s Triangle
-List<List<Integer>> generate(int numRows) {
-    List<List<Integer>> res = new ArrayList<>();
-    for (int i = 0; i < numRows; i++) {
-        List<Integer> row = new ArrayList<>();
-        for (int j = 0; j <= i; j++) {
-            if (j == 0 || j == i) row.add(1);
-            else row.add(res.get(i - 1).get(j - 1) + res.get(i - 1).get(j));
-        }
-        res.add(row);
-    }
-    return res;
-}
-7. Caesar Cipher Encryption
-String caesar(String s, int shift) {
-    String res = "";
-    for (char c : s.toCharArray()) {
-        if (Character.isLetter(c)) {
-            char base = Character.isLowerCase(c) ? 'a' : 'A';
-            c = (char)((c - base + shift) % 26 + base);
-        }
-        res += c;
-    }
-    return res;
-}
-8. Gas Station
-int canCompleteCircuit(int[] gas, int[] cost) {
-    int total = 0, tank = 0, start = 0;
-    for (int i = 0; i < gas.length; i++) {
-        int diff = gas[i] - cost[i];
-        total += diff;
-        tank += diff;
-        if (tank < 0) {
-            tank = 0;
-            start = i + 1;
-        }
-    }
-    return total >= 0 ? start : -1;
-}
-9. Password Combination Generation
-static class SafeTask {
+11. What is CSS and how is it applied to a webpage?
+CSS (Cascading Style Sheets) controls the appearance of a webpage. It changes colors, fonts, spacing, and layouts. CSS can be written inline, internally, or in external files. It helps make websites more attractive and user-friendly.
 
-    public java.util.List<String> findCodes(String digits, int length) {
-        java.util.List<String> res = new java.util.ArrayList<>();
-        generate(digits, length, "", res);
-        return res;
-    }
+12. Explain the CSS box model.
+The CSS box model describes how elements are displayed. It includes content, padding, border, and margin. Every HTML element is treated as a box. Understanding the box model helps create accurate layouts.
 
-    private void generate(String digits, int length, String current, java.util.List<String> res) {
-        if (current.length() == length) {
-            res.add(current);
-            return;
-        }
+13. What is the difference between margin and padding?
+Padding is the space between content and the border. Margin is the space outside the border. Padding increases the internal spacing of an element. Margin creates distance between different elements.
 
-        for (int i = 0; i < digits.length(); i++) {
-            generate(digits, length, current + digits.charAt(i), res);
-        }
-    }
-}
-10. Stack: Parentheses Balance
-boolean isValid(String s) {
-    Stack<Character> stack = new Stack<>();
-    for (char c : s.toCharArray()) {
-        if (c == '(') stack.push(c);
-        else if (c == ')') {
-            if (stack.isEmpty()) return false;
-            stack.pop();
-        }
-    }
-    return stack.isEmpty();
-}
-11. Longest Common Prefix
-String longestCommonPrefix(String[] strs) {
-    String prefix = strs[0];
-    for (int i = 1; i < strs.length; i++) {
-        while (!strs[i].startsWith(prefix)) {
-            prefix = prefix.substring(0, prefix.length() - 1);
-        }
-    }
-    return prefix;
-}
-12. First Unique Character
-int firstUniqChar(String s) {
-    int[] count = new int[26];
-    for (char c : s.toCharArray()) count[c - 'a']++;
-    for (int i = 0; i < s.length(); i++) {
-        if (count[s.charAt(i) - 'a'] == 1) return i;
-    }
-    return -1;
-}
-14. ATM - Payment
-static class ATMTask {
+14. Explain CSS specificity.
+CSS specificity decides which style rule has priority. More specific selectors override less specific ones. For example, an ID selector has higher priority than a class selector. Understanding specificity helps avoid styling conflicts.
 
-    public String calculateATM(int amount) {
-        int[] notes = {100, 50, 20, 10, 5, 1};
-        StringBuilder res = new StringBuilder();
+15. What is the difference between class selectors and ID selectors?
+A class selector can be used on many elements. An ID selector should be unique on a page. Classes are useful for applying the same style to multiple elements. IDs are often used for specific elements.
 
-        for (int n : notes) {
-            while (amount >= n) {
-                res.append(n).append(",");
-                amount -= n;
-            }
-        }
+16. What are pseudo-classes in CSS?
+Pseudo-classes define a special state of an element. Examples include :hover, :focus, and :visited. They allow styles to change based on user actions. This improves the user experience.
 
-        if (res.length() > 0) {
-            res.setLength(res.length() - 1);
-        }
+17. What are pseudo-elements in CSS?
+Pseudo-elements style specific parts of an element. Common examples are ::before and ::after. They can add decorative content without changing HTML. They help create cleaner code.
 
-        return res.toString();
-    }
-}
-15. Linked List: Middle Element
-static class MiddleNodeTask {
+18. Explain the purpose of the position property.
+The position property controls where an element appears on a page. It works with values such as relative, absolute, fixed, and sticky. It is useful for creating layouts and navigation menus. Proper positioning improves page design.
 
-    public int findMiddle(Node head) {
-        if (head == null) return -1;
+19. What is the difference between relative, absolute, fixed, and sticky positioning?
+Relative positioning moves an element from its normal place. Absolute positioning places an element relative to its nearest positioned parent. Fixed positioning keeps an element in the same place during scrolling. Sticky positioning combines relative and fixed behavior.
 
-        Node slow = head;
-        Node fast = head;
+20. Explain how Flexbox works.
+Flexbox is a layout system used to arrange items in rows or columns. It makes alignment and spacing easier. Flexbox can center elements both vertically and horizontally. It is widely used in modern responsive web design.
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
+21. What are the main properties of a Flex container?
+The main Flexbox properties are display:flex, flex-direction, justify-content, align-items, and flex-wrap. These properties control how items are displayed inside a flex container. flex-direction sets the direction of items. justify-content controls horizontal alignment. align-items controls vertical alignment. Flexbox makes layouts easier to create. It is widely used in modern web design.
 
-        return slow.data;
-    }
-}
-16. Validating a Mountain Array
-boolean validMountainArray(int[] arr) {
-    int i = 0, n = arr.length;
+22. Explain CSS Grid and its advantages.
+CSS Grid is a layout system that uses rows and columns. It helps developers create complex webpage layouts. Grid gives more control over the placement of elements. It is useful for both simple and advanced designs. CSS Grid makes responsive layouts easier to build. It also reduces the amount of CSS code needed. Many modern websites use Grid for page layouts.
 
-    while (i + 1 < n && arr[i] < arr[i + 1]) i++;
-    if (i == 0 || i == n - 1) return false;
+23. What are media queries and why are they used?
+Media queries allow different CSS styles for different devices and screen sizes. They help websites look good on computers, tablets, and phones. A website can change its layout based on screen width. Media queries are important for responsive web design. They improve usability on small screens. Most modern websites use media queries. They help create a better user experience.
 
-    while (i + 1 < n && arr[i] > arr[i + 1]) i++;
+24. What is responsive web design?
+Responsive web design means creating websites that work well on all devices. The layout adjusts automatically to different screen sizes. Users can easily view the website on phones, tablets, and computers. Responsive design improves accessibility and usability. It also helps websites look professional. Most modern websites use responsive design. It is an important part of web development.
 
-    return i == n - 1;
-}
-17.FindHighesValue
-static class PriorityTask {
-    public List<Integer> getTopK(int[] nums, int k) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>();        
-        for (int num : nums) {
-            pq.add(num);            
-            if (pq.size() > k) pq.poll();    }        
-        LinkedList<Integer> result = new LinkedList<>();
-        while (!pq.isEmpty()) {
-            result.addFirst(pq.poll());    }        
-        return result; 
-    } }
-18.Balanced binary tree:
-public static boolean isBalanced(TreeNode root) {
-    return height(root) != -1;
-}
+25. Explain the difference between display:none and visibility:hidden.
+display:none removes an element completely from the page. Other elements can move into its place. visibility:hidden hides the element but keeps its space. The hidden element is not visible to users. Both properties can hide content. However, they affect the page layout differently. Developers choose one based on their needs.
 
-public static int height(TreeNode root) {
-    if (root == null) return 0;
+26. What is the purpose of CSS transitions?
+CSS transitions create smooth changes between styles. For example, a button can slowly change color when the mouse is over it. Transitions make websites look more modern. They improve the visual experience for users. Transitions are easy to use with CSS. They can be applied to many properties. Small animations often use transitions.
 
-    int l = height(root.left),
-        rr = height(root.right);
+27. What is the purpose of CSS animations?
+CSS animations allow elements to move or change automatically. They use keyframes to define animation steps. Animations can make a webpage more attractive. They are often used for loading effects and banners. CSS animations do not require JavaScript for simple effects. They help create dynamic webpages. However, too many animations can distract users.
 
-    return (l == -1 || rr == -1 || Math.abs(l - rr) > 1)
-            ? -1
-            : Math.max(l, rr) + 1;
-}
-19. Check a full binary tree:
-public static boolean isFullTree(TreeNode root) {
-    if (root == null) return true;
+28. Explain the z-index property.
+The z-index property controls which element appears on top. It is used when elements overlap each other. A higher z-index value places an element in front of others. This property only works on positioned elements. It is useful for menus, pop-ups, and dialogs. Developers use it to manage layered content. It helps organize webpage elements correctly.
 
-    if ((root.left == null && root.right != null) ||
-        (root.left != null && root.right == null))
-        return false;
+29. What is Bootstrap and why is it used?
+Bootstrap is a popular CSS framework. It provides ready-made styles and components. Developers use Bootstrap to build websites faster. It includes buttons, forms, navigation bars, and grids. Bootstrap also supports responsive design. It helps create professional-looking websites. Many companies and developers use Bootstrap.
 
-    return isFullTree(root.left) && isFullTree(root.right);
-}
-20.Finding Max Degree of General tree:
-public static int getMaxDegree(Node root) {
-    if (root == null) return 0;
+30. Explain accessibility in web development.
+Accessibility means making websites usable for everyone. This includes people with disabilities. Accessible websites support screen readers and keyboard navigation. They use clear text and proper HTML structure. Accessibility improves the user experience. It is important for inclusiveness. Many countries also have accessibility requirements.
 
-    int max = root.children.size();
+31. What is JavaScript and where is it executed?
+JavaScript is a programming language used in web development. It makes webpages interactive and dynamic. JavaScript usually runs in a web browser. It can respond to user actions such as clicks and keyboard input. It can also update content without reloading the page. JavaScript is one of the main web technologies. It is used on almost every modern website.
 
-    for (Node c : root.children)
-        max = Math.max(max, getMaxDegree(c));
+32. Explain the difference between let, const, and var.
+let, const, and var are used to create variables. let allows the value to be changed later. const creates a variable that cannot be reassigned. var is the older way of declaring variables. Today, developers usually prefer let and const. They provide better control over scope. This helps reduce programming errors.
 
-    return max;
-}
-21.BST:
-public static boolean isValidBST(TreeNode root) {
-    return bst(root, Long.MIN_VALUE, Long.MAX_VALUE);
+33. What are JavaScript data types?
+JavaScript data types are different kinds of values that can be stored in variables. Some common data types are String, Number, Boolean, Null, and Undefined. A String is used for text, such as a name. A Number is used for numbers, such as age or price. A Boolean can only be true or false.Data types help JavaScript understand the information it is working with. Different data types are used for different purposes. Using the correct data type makes code easier to write and understand. It also helps programs work correctly.
+
+34. Explain type conversion in JavaScript.
+Type conversion changes a value from one data type to another. JavaScript can do this automatically or manually. For example, the string "5" can become the number 5. Type conversion is useful when working with user input. It helps programs process data correctly. Developers should be careful to avoid mistakes. Understanding conversion improves code quality.
+
+35. What is the difference between == and ===?
+== compares values and may convert data types automatically. === compares both values and data types. For example, "5" == 5 is true, but "5" === 5 is false. Most developers prefer ===. It gives more accurate results. It also helps avoid unexpected behavior. Using === is considered a good practice.
+
+36. Explain logical operators in JavaScript.
+Logical operators are used to combine conditions. && means AND, || means OR, and ! means NOT. They are often used in if statements. Logical operators help programs make decisions. They allow multiple conditions to be checked together. These operators are important in programming logic. They make code more flexible.
+
+37. What are conditional statements?
+Conditional statements allow programs to make decisions. They run different code based on conditions. Common examples are if, else, and switch. Conditions are usually true or false. Conditional statements make programs more interactive. They help control program flow. Most JavaScript programs use them frequently.
+
+38. Explain the purpose of loops in JavaScript.
+Loops repeat a block of code multiple times. They save time and reduce repeated code. Loops are useful when working with arrays and lists. Common loop types are for, while, and do...while. They help automate repetitive tasks. Loops make programs more efficient. Developers use them very often.
+
+39. Compare for, while, and do...while loops.
+A for loop is usually used when the number of repetitions is known. A while loop runs while a condition is true. A do...while loop always runs at least once. Each loop has a different purpose. Developers choose the best one for the task. All three loops can repeat code efficiently. They are basic tools in JavaScript programming.
+
+40. What are functions in JavaScript?
+Functions are reusable blocks of code. They perform specific tasks when called. Functions help organize programs into smaller parts. They can accept input through parameters. They can also return a result. Functions reduce code repetition. They make programs easier to read, maintain, and test.
+
+41. Explain the concept of scope.
+Scope is the area where a variable can be used in a program. Some variables can be used everywhere, while others can only be used in a specific place. Scope helps organize code and avoid errors. It is an important part of JavaScript. Variables inside a function usually cannot be used outside that function. Understanding scope helps developers write better code.
+
+42. What is the difference between local and global variables?
+A local variable is created inside a function and can only be used there. A global variable is created outside functions and can be used anywhere in the program. Local variables are more secure because they affect only one part of the code. Global variables can be accessed by all functions. Developers should use global variables carefully. Too many global variables can make code difficult to manage.
+
+43. What are arrow functions?
+Arrow functions are a short way to write functions in JavaScript. They use the => symbol instead of the function keyword. Arrow functions make code cleaner and easier to read. They are often used for simple tasks and short functions.Many modern JavaScript programs use arrow functions because they reduce the amount of code. They are easy to write and understand. Arrow functions can also accept parameters and return values like normal functions. Developers use them frequently when working with arrays and events. They help make JavaScript code more modern and organized.
+
+44. Explain function parameters and return values.
+Parameters are values passed into a function. They give information to the function. A return value is the result that comes back from the function. Not all functions return a value. Parameters help functions work with different data. Return values allow functions to send results to other parts of the program.
+
+45. What are arrays in JavaScript?
+Arrays are used to store multiple values in one variable. For example, an array can store a list of names or numbers. Each item in an array has an index number. The first item has index 0. Arrays help organize related data. They are very common in JavaScript programming. Many loops are used with arrays.
+
+46. Explain common array methods.
+Array methods are special functions used with arrays. push() adds an item to the end of an array. pop() removes the last item. shift() removes the first item, and unshift() adds an item to the beginning. These methods make it easier to manage array data. JavaScript provides many useful array methods. They save time and reduce code.
+
+47. What are JavaScript objects?
+Objects are used to store related information together. They contain properties and values. For example, an object can store a person's name, age, and city. Objects help organize data clearly. They are very important in JavaScript. Many real-world things can be represented as objects. Developers use them in almost every project.
+
+48. Explain the difference between arrays and objects.
+Arrays store data as a list of items. Objects store data as key-value pairs. Arrays use numbers as indexes. Objects use names called keys. Arrays are useful for ordered data. Objects are useful for describing things with different properties. Both are important in JavaScript programming.
+
+49. What is JSON and why is it used?
+JSON stands for JavaScript Object Notation. It is a simple format for storing and sharing data. JSON is easy for people to read and for computers to understand. It is often used when sending data between a website and a server. Many APIs use JSON. It is one of the most popular data formats today.
+
+50. Explain event handling in JavaScript.
+Event handling allows JavaScript to respond to user actions. Examples of events are clicks, key presses, and mouse movements. When an event happens, JavaScript can run a function. This makes webpages interactive. Event handling is used in buttons, forms, and menus. It improves the user experience. Most modern websites use event handling.
+
+51. What is an event listener?
+An event listener waits for a specific event to happen. When the event occurs, it runs a function. For example, it can detect when a button is clicked. Event listeners are commonly used in JavaScript. They help webpages react to user actions. This makes websites more interactive and useful. Many web applications use event listeners every day.
+
+52. Explain event bubbling.
+Event bubbling is a process in JavaScript events. It starts with the target element and then moves up to its parent elements. For example, if a button inside a div is clicked, the event can also affect the div. This behavior is called bubbling. It helps manage events more efficiently. Developers can also stop event bubbling when needed. Understanding it is important for working with events.
+
+53. What is DOM manipulation?
+DOM manipulation means changing the content or structure of a webpage with JavaScript. Developers can add, remove, or update elements. They can also change styles and attributes. DOM manipulation makes webpages dynamic. It allows content to change without reloading the page. Many interactive websites use DOM manipulation. It is a key part of JavaScript development.
+
+54. Explain the difference between innerHTML and textContent.
+innerHTML can read or change HTML content inside an element. It understands HTML tags. textContent only works with plain text. It does not process HTML tags. innerHTML is useful when adding HTML elements. textContent is safer when working with user text. Both are commonly used in JavaScript.
+
+55. What is form validation?
+Form validation checks if user input is correct. It helps prevent invalid or empty data. For example, it can check if an email address is written correctly. Validation improves data quality. It also helps users fix mistakes before submitting a form. Most websites use form validation. It is important for security and usability.
+
+56. Explain client-side validation and server-side validation.
+Client-side validation happens in the user's browser before data is sent. It provides quick feedback to users. Server-side validation happens on the server after receiving the data. It is more secure because users cannot easily bypass it. Most websites use both types of validation. Together, they improve security and user experience. Validation helps ensure correct data is received.
+
+57. What is localStorage?
+localStorage is a way to store data in the browser. The data remains even after the browser is closed. Websites can save user preferences and settings there. LocalStorage is easy to use with JavaScript. It stores data as key-value pairs. The stored data can be used later. Many websites use it to improve user experience.
+
+58. What is sessionStorage?
+sessionStorage is similar to localStorage. However, the data is removed when the browser tab is closed. It stores information only for the current session. SessionStorage is useful for temporary data. It also uses key-value pairs. Developers often use it for short-term storage. It helps manage session information easily.
+
+59. What is asynchronous programming?
+Asynchronous programming allows tasks to run without stopping the whole program. It helps programs perform multiple tasks at the same time. For example, a webpage can load data while the user continues using it. This improves performance and responsiveness. JavaScript uses asynchronous programming for many web features. It helps create a smoother user experience. Modern websites depend on it.
+
+60. Explain callbacks in JavaScript.
+A callback is a function passed to another function as an argument. It runs after a task is completed. Callbacks are often used in asynchronous programming. They help handle actions that take time. For example, a callback can run after data is loaded from a server. Callbacks make programs more flexible. They are an important JavaScript concept.
+
+61. What is a Promise?
+A Promise is an object that represents the result of an asynchronous operation. It may be completed now or in the future. A Promise can have three states: pending, fulfilled, or rejected. Promises help manage asynchronous code. They make code easier to read than many callbacks. Modern JavaScript uses Promises frequently. They improve code organization.
+
+62. Explain async/await.
+async and await are used to work with Promises. They make asynchronous code look more like normal code. The await keyword waits for a Promise to finish. This makes code easier to read and understand. Many developers prefer async/await. It helps reduce complex callback structures. It is widely used in modern JavaScript.
+
+63. What is an API?
+An API (Application Programming Interface) allows different programs to communicate. It lets one application request data from another. APIs are widely used on websites and mobile apps. For example, a weather app can get weather information from an API. APIs make software development easier. They help applications share information. Many online services provide APIs.
+
+64. What is the Fetch API?
+The Fetch API is a JavaScript feature used to make HTTP requests. It can send requests and receive data from servers. Fetch is commonly used with APIs. It returns a Promise when making requests. Developers use it to load data without refreshing the page. It is simple and powerful. Most modern web applications use Fetch.
+
+65. Explain HTTP status codes.
+HTTP status codes show the result of a request. A code of 200 means success. A code of 404 means the page was not found. A code of 500 means there is a server error. These codes help developers understand problems. Browsers and servers use them to communicate. They are an important part of web development.
+
+66. What is the difference between frontend and backend development?
+Frontend development focuses on the part of the website users can see. It includes design, layout, and interaction. Backend development works behind the scenes. It handles databases, servers, and business logic. Frontend and backend work together. Both are important for building websites. Modern web applications need both parts.
+
+67. Explain the concept of Single Page Applications (SPA).
+A Single Page Application (SPA) loads one webpage and updates content without reloading the whole page. This makes websites faster and smoother. SPAs improve the user experience. Many modern applications use this approach. Examples include social media and online dashboards. JavaScript frameworks often help build SPAs. They are popular in web development.
+
+68. What are the main advantages of modular JavaScript?
+Modular JavaScript divides code into smaller files called modules. This makes code easier to read and manage. Modules help developers reuse code. They also make teamwork easier because different people can work on different modules. Modular code is easier to test and maintain. It reduces duplication. Modern JavaScript projects often use modules.
+
+69. What is Cross-Site Scripting (XSS)?
+Cross-Site Scripting (XSS) is a security problem in websites. It happens when harmful code is inserted into a webpage. Attackers may use XSS to steal user information. This can create security risks. Developers use validation and security measures to prevent XSS. Keeping websites secure is very important. XSS is a common web security topic.
+
+70. Explain the importance of website performance optimization.
+Website performance optimization helps webpages load faster. Fast websites provide a better user experience. Users are more likely to stay on a website that loads quickly. Performance optimization can also reduce server load. Search engines often prefer faster websites. This can improve search rankings. Good performance is important for both users and businesses.
+
+71.	Create a Task Manager application that allows users to:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="task">
+<button onclick="addTask()">Add</button>
+
+<select id="filter" onchange="show()">
+    <option value="all">All</option>
+    <option value="completed">Completed</option>
+    <option value="pending">Pending</option>
+</select>
+
+<ul id="list"></ul>
+
+<script>
+
+let tasks = [];
+
+function addTask(){
+
+    tasks.push({
+        text: task.value,
+        completed: false
+    });
+
+    task.value = "";
+
+    show();
 }
 
-static boolean bst(TreeNode r, long min, long max) {
-    if (r == null) return true;
+function done(i){
 
-    if (r.val <= min || r.val >= max)
-        return false;
+    tasks[i].completed = true;
 
-    return bst(r.left, min, r.val) &&
-           bst(r.right, r.val, max);
+    show();
 }
-22.DEPTH of spesipic:
-public static int getDepth(TreeNode root, int target) {
-    if (root == null) return -1;
-    if (root.val == target) return 0;
 
-    int l = getDepth(root.left, target);
-    if (l != -1) return l + 1;
+function del(i){
 
-    int r = getDepth(root.right, target);
-    if (r != -1) return r + 1;
+    tasks.splice(i,1);
 
-    return -1;
+    show();
 }
-23.Root-to-leaf-path:
-public static boolean hasPathSum(TreeNode root, int targetSum) {
-    if (root == null) return false;
 
-    if (root.left == null && root.right == null)
-        return targetSum == root.val;
+function show(){
 
-    return hasPathSum(root.left, targetSum - root.val) ||
-           hasPathSum(root.right, targetSum - root.val);
-}
-24.Height of node binary tree:
-public static int height(TreeNode root) {
-    if (root == null) return -1;
+    list.innerHTML = "";
 
-    return Math.max(height(root.left),
-                    height(root.right)) + 1;
-}
------------------------------------
-3balliqlar:
-RPN
-1.static class RPNTask {
+    for(let i=0;i<tasks.length;i++){
 
-    public int evalRPN(String[] tokens) {
-        java.util.Stack<Integer> st = new java.util.Stack<>();
+        if(filter.value=="completed" && tasks[i].completed==false)
+            continue;
 
-        for (String s : tokens) {
-            if (s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/")) {
-                int b = st.pop();
-                int a = st.pop();
+        if(filter.value=="pending" && tasks[i].completed==true)
+            continue;
 
-                if (s.equals("+")) st.push(a + b);
-                else if (s.equals("-")) st.push(a - b);
-                else if (s.equals("*")) st.push(a * b);
-                else st.push(a / b);
-            } else {
-                st.push(Integer.parseInt(s));
-            }
-        }
-
-        return st.pop();
+        list.innerHTML += `
+        <li>
+            ${tasks[i].text}
+            ${tasks[i].completed ? "+" : ""}
+            <button onclick="done(${i})">Done</button>
+            <button onclick="del(${i})">Delete</button>
+        </li>
+        `;
     }
 }
-2.CYCLE DETECION
-static class ListTask {
 
-    public boolean hasCycle(ListNode head) {
-        if (head == null || head.next == null) return false;
+</script>
 
-        ListNode slow = head;
-        ListNode fast = head.next;
+</body>
+</html>
 
-        while (fast != null && fast.next != null) {
-            if (slow == fast) return true;
 
-            slow = slow.next;
-            fast = fast.next.next;
-        }
+72.	Create a Student Management System where users can:
+<!DOCTYPE html>
+<html>
+<body>
 
-        return false;
-    }
+<input id="name" placeholder="Name">
+<button onclick="addStudent()">Add</button>
+
+<br><br>
+
+<input id="search" placeholder="Search" onkeyup="showStudents()">
+
+<ul id="list"></ul>
+
+<script>
+
+let students = [];
+
+function addStudent(){
+
+    let name = document.getElementById("name");
+
+    if(name.value.trim() == "") return;
+
+    students.push(name.value);
+
+    name.value = "";
+
+    showStudents();
 }
-3. Unique Random Array
-static class RandomTask {
 
-    public int[] generateUniqueArray(int n) {
-        int[] result = new int[n];
-        boolean[] used = new boolean[n + 1];
-        java.util.Random r = new java.util.Random();
 
-        for (int i = 0; i < n; i++) {
-            int x = r.nextInt(n) + 1;
 
-            while (used[x]) {
-                x = r.nextInt(n) + 1;
-            }
+function deleteStudent(i){
 
-            result[i] = x;
-            used[x] = true;
-        }
+    students.splice(i,1);
 
-        return result;
-    }
+    showStudents();
 }
-4. Maximum Product Subarray
-static class Task {
 
-    public int maxProduct(int[] nums) {
-        int max = nums[0], min = nums[0], res = nums[0];
+function showStudents(){
 
-        for (int i = 1; i < nums.length; i++) {
-            int temp = max;
+    let list = document.getElementById("list");
+    let search = document.getElementById("search");
 
-            max = Math.max(nums[i], Math.max(max * nums[i], min * nums[i]));
-            min = Math.min(nums[i], Math.min(temp * nums[i], min * nums[i]));
+    list.innerHTML = "";
 
-            if (max > res) res = max;
-        }
+    for(let i=0;i<students.length;i++){
 
-        return res;
-    }
-}
-5. Container With Most Water
-static class WaterTask {
+        if(students[i].toLowerCase().includes(search.value.toLowerCase())){
 
-    public int maxArea(int[] height) {
-        int l = 0, r = height.length - 1;
-        int max = 0;
-
-        while (l < r) {
-            int area = Math.min(height[l], height[r]) * (r - l);
-            if (area > max) max = area;
-
-            if (height[l] < height[r]) l++;
-            else r--;
-        }
-
-        return max;
-    }
-}
-6. Spiral Matrix
-static class MatrixTask {
-
-    public int[][] generateMatrix(int n) {
-        int[][] a = new int[n][n];
-
-        int top = 0, bottom = n - 1;
-        int left = 0, right = n - 1;
-        int num = 1;
-
-        while (true) {
-            for (int i = left; i <= right; i++) a[top][i] = num++;
-            if (++top > bottom) break;
-
-            for (int i = top; i <= bottom; i++) a[i][right] = num++;
-            if (--right < left) break;
-
-            for (int i = right; i >= left; i--) a[bottom][i] = num++;
-            if (--bottom < top) break;
-
-            for (int i = bottom; i >= top; i--) a[i][left] = num++;
-            if (++left > right) break;
-        }
-
-        return a;
-    }
-}
-7. Coin Change (100% düzgün)
-static class Task {
-
-    public int coinChange(int[] coins, int amount) {
-        int[] dp = new int[amount + 1];
-
-        java.util.Arrays.fill(dp, amount + 1);
-        dp[0] = 0;
-
-        for (int i = 1; i <= amount; i++) {
-            for (int c : coins) {
-                if (i >= c) {
-                    dp[i] = Math.min(dp[i], dp[i - c] + 1);
-                }
-            }
-        }
-
-        return dp[amount] == amount + 1 ? -1 : dp[amount];
-    }
-}
-8.Binary Tree level order Traversal:
-public static List<List<Integer>> levelOrder(TreeNode root) {
-    List<List<Integer>> res = new ArrayList<>();
-    if (root == null) return res;
-
-    Queue<TreeNode> q = new LinkedList<>();
-    q.add(root);
-
-    while (!q.isEmpty()) {
-        List<Integer> l = new ArrayList<>();
-
-        for (int s = q.size(); s > 0; s--) {
-            TreeNode t = q.poll();
-
-            l.add(t.val);
-
-            if (t.left != null) q.add(t.left);
-            if (t.right != null) q.add(t.right);
-        }
-
-        res.add(l);
-    }
-    return res;
-}
-9.Convert a binary tree into a multi-level linked list:
-public static MultiNode convertToMultiLevel(TreeNode root) {
-    if (root == null) return null;
-
-    MultiNode n = new MultiNode(root.val);
-
-    n.child = convertToMultiLevel(root.left);
-    n.next = convertToMultiLevel(root.right);
-
-    return n;
-}
-10.Checking Complete Binary tree:
-public static boolean isComplete(TreeNode root) {
-    Queue<TreeNode> q = new LinkedList<>();
-    q.add(root);
-
-    boolean f = false;
-
-    while (!q.isEmpty()) {
-        TreeNode n = q.poll();
-
-        if (n == null) f = true;
-        else {
-            if (f) return false;
-
-            q.add(n.left);
-            q.add(n.right);
+            list.innerHTML += `
+            <li>
+                ${students[i]}
+                
+                <button onclick="deleteStudent(${i})">Delete</button>
+            </li>
+            `;
         }
     }
-    return true;
-}
-11.Check Perfect Binary:
-public static boolean isPerfect(TreeNode r) {
-    int d = depth(r);
-    return check(r, d, 0);
 }
 
-static int depth(TreeNode r) {
-    return r == null ? 0 : 1 + depth(r.left);
+</script>
+
+</body>
+</html>
+
+73.	Create a shopping cart system where users can:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="product" placeholder="Product name">
+<input id="price" placeholder="Price">
+<button onclick="addProduct()">Add</button>
+
+<br><br>
+
+<ul id="list"></ul>
+
+<h3>Total: <span id="total">0</span></h3>
+
+<script>
+
+let cart = [];
+
+function addProduct(){
+
+    if(product.value.trim() == "" || price.value.trim() == "") return;
+
+    cart.push({
+        name: product.value,
+        price: Number(price.value),
+        qty: 1
+    });
+
+    product.value = "";
+    price.value = "";
+
+    show();
 }
 
-static boolean check(TreeNode r, int d, int l) {
-    if (r == null) return true;
-    if (r.left == null && r.right == null) return d == l + 1;
-    if (r.left == null || r.right == null) return false;
-    return check(r.left, d, l + 1) && check(r.right, d, l + 1);
-}
-12.Balanced BST:
-public static TreeNode sortedArrayToBST(int[] a) {
-    return f(a, 0, a.length - 1);
+function changeQty(i){
+
+    cart[i].qty = cart[i].qty + 1;
+
+    show();
 }
 
-static TreeNode f(int[] a, int l, int r) {
-    if (l > r) return null;
-    int m = (l + r) / 2;
-    TreeNode n = new TreeNode(a[m]);
-    n.left = f(a, l, m - 1);
-    n.right = f(a, m + 1, r);
-    return n;
+function decreaseQty(i){
+
+    if(cart[i].qty > 1){
+        cart[i].qty = cart[i].qty - 1;
+    }
+
+    show();
 }
+
+function deleteProduct(i){
+
+    cart.splice(i,1);
+
+    show();
+}
+
+function show(){
+
+    let list = document.getElementById("list");
+    let total = document.getElementById("total");
+
+    list.innerHTML = "";
+
+    let sum = 0;
+
+    for(let i=0;i<cart.length;i++){
+
+        sum = sum + (cart[i].price * cart[i].qty);
+
+        list.innerHTML += `
+        <li>
+            ${cart[i].name} - ${cart[i].price} x ${cart[i].qty}
+            <button onclick="changeQty(${i})">+</button>
+            <button onclick="decreaseQty(${i})">-</button>
+            <button onclick="deleteProduct(${i})">Delete</button>
+        </li>
+        `;
+    }
+
+    total.innerText = sum;
+}
+
+</script>
+
+</body>
+</html>
+
+74.	Create a weather dashboard that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="city" placeholder="City">
+<button onclick="getWeather()">Get Weather</button>
+
+<h2 id="info"></h2>
+
+<script>
+
+async function getWeather(){
+
+    let city = document.getElementById("city").value;
+
+    if(city.trim() == "") return;
+
+    let geoUrl = "https://geocoding-api.open-meteo.com/v1/search?name=" + city;
+
+    let geoRes = await fetch(geoUrl);
+    let geoData = await geoRes.json();
+
+    if(!geoData.results){
+        document.getElementById("info").innerText = "City not found";
+        return;
+    }
+
+    let lat = geoData.results[0].latitude;
+    let lon = geoData.results[0].longitude;
+
+    let weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current_weather=true";
+
+    let res = await fetch(weatherUrl);
+    let data = await res.json();
+
+    let weather = data.current_weather;
+
+    document.getElementById("info").innerText =
+        city + " Temp: " + weather.temperature + "°C";
+
+    if(weather.temperature < 10){
+        document.body.style.background = "lightblue";
+    }
+    else if(weather.temperature < 25){
+        document.body.style.background = "lightyellow";
+    }
+    else{
+        document.body.style.background = "orange";
+    }
+}
+
+</script>
+
+</body>
+</html>
+
+75.	Create a quiz application that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2 id="q"></h2>
+
+<button onclick="answer('4')">4</button>
+<button onclick="answer('3')">3</button>
+<button onclick="answer('5')">5</button>
+
+<h3 id="result"></h3>
+
+<script>
+
+let index = 0;
+let score = 0;
+
+let questions = [
+    { q: "2+2", correct: "4" },
+    { q: "3+2", correct: "5" }
+];
+
+function show(){
+
+    if(index >= questions.length){
+        q.innerText = "Finished";
+        result.innerText = "Score: " + score;
+        return;
+    }
+
+    q.innerText = questions[index].q;
+}
+
+function answer(x){
+
+    if(x == questions[index].correct){
+        score++;
+    }
+
+    index++;
+
+    show();
+}
+
+show();
+
+</script>
+
+</body>
+</html>
+
+76.	Create an expense tracker that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="text" placeholder="Description">
+<input id="amount" placeholder="Amount">
+<button onclick="add()">Add</button>
+
+<h2>Balance: <span id="balance">0</span></h2>
+
+<ul id="list"></ul>
+
+<script>
+
+let data = JSON.parse(localStorage.getItem("data")) || [];
+
+function add(){
+
+    if(text.value.trim() == "" || amount.value.trim() == "") return;
+
+    data.push({
+        text: text.value,
+        amount: Number(amount.value)
+    });
+
+    text.value = "";
+    amount.value = "";
+
+    save();
+    show();
+}
+
+function save(){
+    localStorage.setItem("data", JSON.stringify(data));
+}
+
+function show(){
+
+    let list = document.getElementById("list");
+    let balance = document.getElementById("balance");
+
+    list.innerHTML = "";
+
+    let total = 0;
+
+    for(let i=0;i<data.length;i++){
+
+        total = total + data[i].amount;
+
+        list.innerHTML += `
+        <li>
+            ${data[i].text} : ${data[i].amount}
+            <button onclick="del(${i})">X</button>
+        </li>
+        `;
+    }
+
+    balance.innerText = total;
+}
+
+function del(i){
+
+    data.splice(i,1);
+
+    save();
+    show();
+}
+
+show();
+
+</script>
+
+</body>
+</html>
+
+77.	Create a movie search application using a public API that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="search" placeholder="Movie name">
+<button onclick="getMovies()">Search</button>
+
+<div id="list"></div>
+
+<script>
+
+let movies = [
+    {
+        title: "Batman",
+        year: 2022,
+        poster: "https://via.placeholder.com/100x150?text=Batman"
+    },
+    {
+        title: "Superman",
+        year: 2021,
+        poster: "https://via.placeholder.com/100x150?text=Superman"
+    },
+    {
+        title: "Spiderman",
+        year: 2023,
+        poster: "https://via.placeholder.com/100x150?text=Spiderman"
+    }
+];
+
+function getMovies(){
+
+    let name = document.getElementById("search").value.toLowerCase();
+    let list = document.getElementById("list");
+
+    list.innerHTML = "";
+
+    let found = false;
+
+    for(let i=0;i<movies.length;i++){
+
+        if(movies[i].title.toLowerCase().includes(name)){
+
+            list.innerHTML += `
+            <div>
+                <h3>${movies[i].title}</h3>
+                <img src="${movies[i].poster}">
+                <p>${movies[i].year}</p>
+                <hr>
+            </div>
+            `;
+
+            found = true;
+        }
+    }
+
+    if(!found){
+        list.innerHTML = "No movies found";
+    }
+}
+
+</script>
+
+</body>
+</html>
+
+78.	Create an image gallery that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<img id="img" width="300">
+
+<br><br>
+
+<button onclick="prev()">Prev</button>
+<button onclick="next()">Next</button>
+
+<script>
+
+let images = [
+    "C:\\Users\\user\\Desktop\\veb\\Black_colour.jpg.webp",
+    "C:\\Users\\user\\Desktop\\veb\\red.jpg.webp",
+    "C:\\Users\\user\\Desktop\\veb\\images.jpg.webp",
+];
+
+let index = 0;
+
+function show(){
+
+    document.getElementById("img").src = images[index];
+}
+
+function next(){
+
+    index++;
+
+    if(index >= images.length){
+        index = 0;
+    }
+
+    show();
+}
+
+function prev(){
+
+    index--;
+
+    if(index < 0){
+        index = images.length - 1;
+    }
+
+    show();
+}
+
+show();
+
+</script>
+
+</body>
+</html>
+
+79.	Create a responsive Kanban board with three columns:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="task" placeholder="Task">
+<button onclick="addTask()">Add</button>
+
+<h3>To Do</h3>
+<ul id="todo"></ul>
+
+<h3>In Progress</h3>
+<ul id="progress"></ul>
+
+<h3>Done</h3>
+<ul id="done"></ul>
+
+<script>
+
+let tasks = [];
+
+function addTask(){
+
+    if(task.value.trim() == "") return;
+
+    tasks.push({
+        text: task.value,
+        status: "todo"
+    });
+
+    task.value = "";
+
+    show();
+}
+
+function move(i, status){
+
+    tasks[i].status = status;
+
+    show();
+}
+
+function deleteTask(i){
+
+    tasks.splice(i,1);
+
+    show();
+}
+
+function show(){
+
+    let todo = document.getElementById("todo");
+    let progress = document.getElementById("progress");
+    let done = document.getElementById("done");
+
+    todo.innerHTML = "";
+    progress.innerHTML = "";
+    done.innerHTML = "";
+
+    for(let i=0;i<tasks.length;i++){
+
+        let t = tasks[i];
+
+        let html = `
+        <li>
+            ${t.text}
+            <button onclick="deleteTask(${i})">X</button>
+        </li>
+        `;
+
+        if(t.status == "todo"){
+            todo.innerHTML += html + `<button onclick="move(${i},'progress')">Move</button>`;
+        }
+
+        if(t.status == "progress"){
+            progress.innerHTML += html + `<button onclick="move(${i},'done')">Move</button>`;
+        }
+
+        if(t.status == "done"){
+            done.innerHTML += html;
+        }
+    }
+}
+
+</script>
+
+</body>
+</html>
+
+80.	Create a memory card game where:
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3>Attempts: <span id="att">0</span></h3>
+
+<div id="game"></div>
+
+<script>
+
+let cards = ["A","A","B","B"];
+let opened = [];
+let att = 0;
+
+cards.sort(() => Math.random() - 0.5);
+
+function draw(){
+
+    let game = document.getElementById("game");
+    game.innerHTML = "";
+
+    for(let i=0;i<cards.length;i++){
+
+        game.innerHTML += `
+        <button onclick="flip(${i})" id="c${i}">?</button>
+        `;
+    }
+}
+
+function flip(i){
+
+    let btn = document.getElementById("c"+i);
+
+    if(btn.innerText != "?") return;
+
+    btn.innerText = cards[i];
+
+    opened.push(i);
+
+    if(opened.length == 2){
+
+        att++;
+        document.getElementById("att").innerText = att;
+
+        let i1 = opened[0];
+        let i2 = opened[1];
+
+        if(cards[i1] != cards[i2]){
+
+            setTimeout(function(){
+
+                document.getElementById("c"+i1).innerText = "?";
+                document.getElementById("c"+i2).innerText = "?";
+
+            }, 500);
+        }
+
+        opened = [];
+    }
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
+
+81.	Create a product catalog that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="search" placeholder="Search" onkeyup="show()">
+
+<input id="max" placeholder="Max price" oninput="show()">
+
+<button onclick="sortLow()">Sort Low</button>
+
+<div id="list"></div>
+
+<script>
+
+let products = [
+    {name:"Phone", price:500},
+    {name:"Laptop", price:1200},
+    {name:"Headphones", price:100},
+    {name:"Mouse", price:50}
+];
+
+function show(){
+
+    let list = document.getElementById("list");
+
+    let search = document.getElementById("search").value.toLowerCase();
+    let max = document.getElementById("max").value;
+
+    list.innerHTML = "";
+
+    for(let i=0;i<products.length;i++){
+
+        let nameMatch = products[i].name.toLowerCase().includes(search);
+
+        let priceMatch = true;
+
+        if(max != ""){
+            priceMatch = products[i].price <= Number(max);
+        }
+
+        if(nameMatch && priceMatch){
+
+            list.innerHTML += `
+            <p>
+                ${products[i].name} - ${products[i].price}
+            </p>
+            `;
+        }
+    }
+}
+
+function sortLow(){
+
+    products.sort((a,b) => a.price - b.price);
+
+    show();
+}
+
+show();
+
+</script>
+
+</body>
+</html>
+
+82.	Create a registration form with:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="name" placeholder="Name">
+<br><br>
+
+<input id="email" placeholder="Email">
+<br><br>
+
+<input id="pass" type="password" placeholder="Password">
+<br><br>
+
+<input id="cpass" type="password" placeholder="Confirm Password">
+<br><br>
+
+<button onclick="register()">Register</button>
+
+<h3 id="msg"></h3>
+
+<script>
+
+function register(){
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let pass = document.getElementById("pass").value;
+    let cpass = document.getElementById("cpass").value;
+
+    let msg = document.getElementById("msg");
+
+    if(name == "" || email == "" || pass == "" || cpass == ""){
+        msg.innerText = "Fill all fields";
+        return;
+    }
+
+    if(pass.length < 6){
+        msg.innerText = "Password too short";
+        return;
+    }
+
+    if(!/[A-Z]/.test(pass)){
+        msg.innerText = "Add uppercase letter";
+        return;
+    }
+
+    if(!/[0-9]/.test(pass)){
+        msg.innerText = "Add number";
+        return;
+    }
+
+    if(!/[!@#$%^&*]/.test(pass)){
+        msg.innerText = "Add special symbol";
+        return;
+    }
+
+    if(pass != cpass){
+        msg.innerText = "Passwords not match";
+        return;
+    }
+
+    msg.innerText = "Success!";
+}
+
+</script>
+
+</body>
+</html>
+
+83.	Create a countdown application where users can:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="time" placeholder="Seconds">
+<button onclick="addTimer()">Add Timer</button>
+
+<div id="list"></div>
+
+<script>
+
+let timers = [];
+
+function addTimer(){
+
+    if(time.value.trim() == "") return;
+
+    timers.push({
+        t: Number(time.value),
+        id: null
+    });
+
+    time.value = "";
+
+    show();
+}
+
+function start(i){
+
+    if(timers[i].id) return;
+
+    timers[i].id = setInterval(function(){
+
+        if(timers[i].t > 0){
+            timers[i].t--;
+            show();
+        }
+        else{
+            clearInterval(timers[i].id);
+            timers[i].id = null;
+        }
+
+    },1000);
+}
+
+function stop(i){
+
+    clearInterval(timers[i].id);
+    timers[i].id = null;
+}
+
+function deleteTimer(i){
+
+    clearInterval(timers[i].id);
+    timers.splice(i,1);
+    show();
+}
+
+function show(){
+
+    let list = document.getElementById("list");
+
+    list.innerHTML = "";
+
+    for(let i=0;i<timers.length;i++){
+
+        list.innerHTML += `
+        <div>
+            ${timers[i].t}
+            <button onclick="start(${i})">Start</button>
+            <button onclick="stop(${i})">Stop</button>
+            <button onclick="deleteTimer(${i})">Delete</button>
+        </div>
+        `;
+    }
+}
+
+</script>
+
+</body>
+</html>
+
+84.	Create a note management system that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="note" placeholder="Write note">
+<button onclick="addNote()">Add</button>
+
+<ul id="list"></ul>
+
+<script>
+
+let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+function addNote(){
+
+    if(note.value.trim() == "") return;
+
+    notes.push(note.value);
+
+    note.value = "";
+
+    save();
+    show();
+}
+
+function deleteNote(i){
+
+    notes.splice(i,1);
+
+    save();
+    show();
+}
+
+function editNote(i){
+
+    let x = prompt("Edit note", notes[i]);
+
+    if(x && x.trim() != ""){
+
+        notes[i] = x;
+
+        save();
+        show();
+    }
+}
+
+function save(){
+
+    localStorage.setItem("notes", JSON.stringify(notes));
+}
+
+function show(){
+
+    let list = document.getElementById("list");
+
+    list.innerHTML = "";
+
+    for(let i=0;i<notes.length;i++){
+
+        list.innerHTML += `
+        <li>
+            ${notes[i]}
+            <button onclick="editNote(${i})">Edit</button>
+            <button onclick="deleteNote(${i})">Delete</button>
+        </li>
+        `;
+    }
+}
+
+show();
+
+</script>
+
+</body>
+</html>
+
+85.	Create a dashboard that displays:
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2 id="time"></h2>
+<h3 id="date"></h3>
+
+<h3 id="weather"></h3>
+
+<input id="task" placeholder="Task">
+<button onclick="addTask()">Add</button>
+
+<ul id="list"></ul>
+
+<script>
+
+let tasks = [];
+
+function updateTime(){
+
+    let now = new Date();
+
+    time.innerText = now.toLocaleTimeString();
+    date.innerText = now.toLocaleDateString();
+}
+
+setInterval(updateTime,1000);
+
+function weather(){
+
+    let temp = Math.floor(Math.random() * 50) - 10;
+
+    let states = ["Sunny", "Cloudy", "Rainy", "Snowy"];
+    let state = states[Math.floor(Math.random() * states.length)];
+
+    document.getElementById("weather").innerText =
+        "Temp: " + temp + "°C - " + state;
+
+    if(temp < 0){
+        document.body.style.background = "lightblue";
+    }
+    else if(temp < 15){
+        document.body.style.background = "gray";
+    }
+    else if(temp < 30){
+        document.body.style.background = "lightyellow";
+    }
+    else{
+        document.body.style.background = "orange";
+    }
+}
+
+weather();
+
+function addTask(){
+
+    if(task.value.trim() == "") return;
+
+    tasks.push(task.value);
+
+    task.value = "";
+
+    show();
+}
+
+function deleteTask(i){
+
+    tasks.splice(i,1);
+
+    show();
+}
+
+function show(){
+
+    let list = document.getElementById("list");
+
+    list.innerHTML = "";
+
+    for(let i=0;i<tasks.length;i++){
+
+        list.innerHTML += `
+        <li>
+            ${tasks[i]}
+            <button onclick="deleteTask(${i})">X</button>
+        </li>
+        `;
+    }
+}
+
+updateTime();
+
+</script>
+
+</body>
+</html>
+
+86.	Create a simple chat interface that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="message" placeholder="Message">
+<button onclick="send()">Send</button>
+
+<div id="chat"></div>
+
+<script>
+
+function send(){
+
+    if(message.value.trim() == "") return;
+
+    let text = message.value.toLowerCase();
+
+    chat.innerHTML += `
+    <p>You: ${message.value}</p>
+    `;
+
+    let reply = "I don't understand";
+
+    if(text == "hi"){
+        reply = "Hi";
+    }
+
+    if(text == "how are u"){
+        reply = "I am good, how are u?";
+    }
+
+    if(text == "good"){
+        reply = "Glad to hear";
+    }
+
+    message.value = "";
+
+    setTimeout(function(){
+
+        chat.innerHTML += `
+        <p>Friend: ${reply}</p>
+        `;
+
+    },1000);
+
+}
+
+</script>
+
+</body>
+</html>
+
+87.	Create a file explorer simulation where users can:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="item" placeholder="Folder/File name">
+
+<button onclick="addFolder()">Folder</button>
+<button onclick="addFile()">File</button>
+
+<ul id="list"></ul>
+
+<script>
+
+let items = [];
+
+function addFolder(){
+
+    if(item.value == "") return;
+
+    items.push("📁 " + item.value);
+
+    item.value = "";
+
+    show();
+}
+
+function addFile(){
+
+    if(item.value == "") return;
+
+    items.push("📄 " + item.value);
+
+    item.value = "";
+
+    show();
+}
+
+function renameItem(i){
+
+    let x = prompt("New name", items[i]);
+
+    if(x){
+        items[i] = x;
+        show();
+    }
+}
+
+function deleteItem(i){
+
+    items.splice(i,1);
+
+    show();
+}
+
+function show(){
+
+    list.innerHTML = "";
+
+    for(let i=0;i<items.length;i++){
+
+        list.innerHTML += `
+        <li>
+            ${items[i]}
+            <button onclick="renameItem(${i})">Rename</button>
+            <button onclick="deleteItem(${i})">Delete</button>
+        </li>
+        `;
+    }
+}
+
+</script>
+
+</body>
+</html>
+
+88.	Create a responsive online examination system that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3 id="timer">30</h3>
+
+<h2 id="question"></h2>
+
+<button onclick="answer('A')" id="a"></button>
+<button onclick="answer('B')" id="b"></button>
+
+<script>
+
+let questions = [
+    {
+        q:"2 + 2 = ?",
+        A:"4",
+        B:"5",
+        correct:"A"
+    },
+    {
+        q:"5 + 5 = ?",
+        A:"10",
+        B:"12",
+        correct:"A"
+    }
+];
+
+let index = 0;
+let score = 0;
+let time = 30;
+
+function show(){
+
+    question.innerText = questions[index].q;
+
+    a.innerText = questions[index].A;
+    b.innerText = questions[index].B;
+}
+
+function answer(x){
+
+    if(x == questions[index].correct){
+        score++;
+    }
+
+    index++;
+
+    if(index < questions.length){
+        show();
+    }
+    else{
+        question.innerText = "Score: " + score;
+        a.style.display = "none";
+        b.style.display = "none";
+    }
+}
+
+setInterval(function(){
+
+    time--;
+
+    timer.innerText = time;
+
+    if(time == 0){
+
+        question.innerText = "Time Over! Score: " + score;
+
+        a.style.display = "none";
+        b.style.display = "none";
+    }
+
+},1000);
+
+show();
+
+</script>
+
+</body>
+</html>
+
+89.	Create a hotel room booking interface where:
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3>Rooms</h3>
+
+<div id="rooms"></div>
+
+<h3 id="info"></h3>
+
+<script>
+
+let hotelRooms = [
+    {number:101, occupied:false},
+    {number:102, occupied:true},
+    {number:103, occupied:false},
+    {number:104, occupied:true}
+];
+
+function book(i){
+
+    if(hotelRooms[i].occupied){
+        return;
+    }
+
+    info.innerText = "Booked Room: " + hotelRooms[i].number;
+}
+
+function show(){
+
+    rooms.innerHTML = "";
+
+    for(let i=0;i<hotelRooms.length;i++){
+
+        if(hotelRooms[i].occupied){
+
+            rooms.innerHTML += `
+            <button disabled>
+                Room ${hotelRooms[i].number} (Occupied)
+            </button>
+            `;
+        }
+        else{
+
+            rooms.innerHTML += `
+            <button onclick="book(${i})">
+                Room ${hotelRooms[i].number}
+            </button>
+            `;
+        }
+
+        rooms.innerHTML += "<br><br>";
+    }
+}
+
+show();
+
+</script>
+
+</body>
+</html>
+
+90.	Create a calendar application that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>June 2026</h2>
+
+<div id="calendar"></div>
+
+<br><br>
+
+<input id="day" placeholder="Day">
+<input id="eventText" placeholder="Event">
+
+<button onclick="addEvent()">Add Event</button>
+
+<ul id="events"></ul>
+
+<script>
+
+let events = [];
+
+function drawCalendar(){
+
+    let today = new Date().getDate();
+
+    for(let i=1;i<=30;i++){
+
+        if(i == today){
+            calendar.innerHTML += "<b>" + i + "</b> ";
+        }
+        else{
+            calendar.innerHTML += i + " ";
+        }
+    }
+}
+
+function addEvent(){
+
+    if(day.value == "" || eventText.value == "") return;
+
+    events.push({
+        day: day.value,
+        text: eventText.value
+    });
+
+    day.value = "";
+    eventText.value = "";
+
+    showEvents();
+}
+
+function showEvents(){
+
+    events.innerHTML = "";
+
+    for(let i=0;i<events.length;i++){
+
+        document.getElementById("events").innerHTML += `
+        <li>
+            Day ${events[i].day}: ${events[i].text}
+        </li>
+        `;
+    }
+}
+
+drawCalendar();
+
+</script>
+
+</body>
+</html>
+
+91.	Create a dynamic table where users can:
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="studentName" placeholder="Name">
+<input id="age" placeholder="Age">
+
+<button onclick="addRow()">Add</button>
+<button onclick="sortTable()">Sort</button>
+
+<table border="1" id="table"></table>
+
+<script>
+
+let data = [];
+
+function addRow(){
+
+    let studentName = document.getElementById("studentName");
+    let age = document.getElementById("age");
+
+    if(studentName.value == "" || age.value == "") return;
+
+    data.push({
+        name: studentName.value,
+        age: age.value
+    });
+
+    studentName.value = "";
+    age.value = "";
+
+    show();
+}
+
+function editRow(i){
+
+    let x = prompt("New Name", data[i].name);
+
+    if(x){
+
+        data[i].name = x;
+
+        show();
+    }
+}
+
+function deleteRow(i){
+
+    data.splice(i,1);
+
+    show();
+}
+
+function sortTable(){
+
+    data.sort(function(a,b){
+
+        return a.name.localeCompare(b.name);
+
+    });
+
+    show();
+}
+
+function show(){
+
+    let table = document.getElementById("table");
+
+    table.innerHTML = `
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Action</th>
+    </tr>
+    `;
+
+    for(let i=0;i<data.length;i++){
+
+        table.innerHTML += `
+        <tr>
+            <td>${data[i].name}</td>
+            <td>${data[i].age}</td>
+            <td>
+                <button onclick="editRow(${i})">Edit</button>
+                <button onclick="deleteRow(${i})">Delete</button>
+            </td>
+        </tr>
+        `;
+    }
+}
+
+show();
+
+</script>
+
+</body>
+</html>
+
+92.	Create a cryptocurrency dashboard using a public API that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Crypto Dashboard</h2>
+
+<div id="list"></div>
+
+<script>
+
+let coins = [
+    {name:"Bitcoin", price:100000},
+    {name:"Ethereum", price:3000},
+    {name:"Dogecoin", price:1}
+];
+
+function show(){
+
+    list.innerHTML = "";
+
+    for(let i=0;i<coins.length;i++){
+
+        list.innerHTML += `
+        <p>
+            ${coins[i].name} : $${coins[i].price}
+        </p>
+        `;
+    }
+}
+
+function updatePrices(){
+
+    for(let i=0;i<coins.length;i++){
+
+        let change = Math.floor(Math.random() * 100) - 50;
+
+        coins[i].price += change;
+    }
+
+    show();
+}
+
+show();
+
+setInterval(updatePrices,3000);
+
+</script>
+
+</body>
+</html>
+
+93.	Create a responsive image editor that:
+<!DOCTYPE html>
+<html>
+<body>
+
+<img id="image"
+src="https://picsum.photos/200">
+
+<br><br>
+
+<button onclick="bigger()">Bigger</button>
+<button onclick="smaller()">Smaller</button>
+<button onclick="rotate()">Rotate</button>
+<button onclick="gray()">Gray</button>
+
+<script>
+
+let size = 200;
+let deg = 0;
+
+function bigger(){
+
+    size += 50;
+
+    image.style.width = size + "px";
+}
+
+function smaller(){
+
+    if(size > 50){
+
+        size -= 50;
+
+        image.style.width = size + "px";
+    }
+}
+
+function rotate(){
+
+    deg += 90;
+
+    image.style.transform = "rotate(" + deg + "deg)";
+}
+
+function gray(){
+
+    image.style.filter = "grayscale(100%)";
+}
+
+</script>
+
+</body>
+</html>
+
+94.	Create a university course registration system where:
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Course Registration</title>
+</head>
+<body>
+
+<h2>Courses</h2>
+
+<select id="courseSelect">
+  <option value="Math-3">Math (3 credits)</option>
+  <option value="Physics-4">Physics (4 credits)</option>
+  <option value="CS-5">Computer Science (5 credits)</option>
+  <option value="History-2">History (2 credits)</option>
+</select>
+
+<button onclick="addCourse()">Add Course</button>
+
+<h3>Selected Courses</h3>
+<ul id="list"></ul>
+
+<h3>Total Credits: <span id="total">0</span></h3>
+
+<script>
+
+let selectedCourses = [];
+let totalCredits = 0;
+
+function addCourse() {
+  let value = document.getElementById("courseSelect").value;
+
+  let [name, credits] = value.split("-");
+
+  credits = Number(credits);
+
+  if (selectedCourses.includes(name)) {
+    alert("This course is already selected!");
+    return;
+  }
+
+  selectedCourses.push(name);
+  totalCredits += credits;
+
+  render();
+}
+
+function render() {
+  let list = document.getElementById("list");
+  list.innerHTML = "";
+
+  selectedCourses.forEach(course => {
+    let li = document.createElement("li");
+    li.textContent = course;
+    list.appendChild(li);
+  });
+
+  document.getElementById("total").textContent = totalCredits;
+}
+
+</script>
+
+</body>
+</html>
+
+95.	Create a music player interface that:
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music Player</title>
+</head>
+<body>
+
+<h2>🎵 Music Player</h2>
+
+<h3 id="trackName">No track</h3>
+
+<button onclick="prevTrack()">⏮ Prev</button>
+<button onclick="togglePlay()">▶️ Play / ⏸ Pause</button>
+<button onclick="nextTrack()">⏭ Next</button>
+
+<script>
+
+let tracks = [
+  { name: "Song 1", file: "song1.mp3" },
+  { name: "Song 2", file: "song2.mp3" },
+  { name: "Song 3", file: "song3.mp3" }
+];
+
+let index = 0;
+let audio = new Audio(tracks[index].file);
+let isPlaying = false;
+
+function updateTrackName() {
+  document.getElementById("trackName").textContent =
+    "Now Playing: " + tracks[index].name;
+}
+
+function togglePlay() {
+  if (isPlaying) {
+    audio.pause();
+    isPlaying = false;
+  } else {
+    audio.play();
+    isPlaying = true;
+  }
+
+  updateTrackName();
+}
+
+function nextTrack() {
+  index++;
+
+  if (index >= tracks.length) index = 0;
+
+  changeTrack();
+}
+
+function prevTrack() {
+  index--;
+
+  if (index < 0) index = tracks.length - 1;
+
+  changeTrack();
+}
+
+function changeTrack() {
+  audio.pause();
+  audio = new Audio(tracks[index].file);
+
+  if (isPlaying) {
+    audio.play();
+  }
+
+  updateTrackName();
+}
+
+updateTrackName();
+
+</script>
+
+</body>
+</html>
+
+96.	Create a responsive e-commerce homepage with:
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shop Simple</title>
+</head>
+<body>
+
+<h2>Shop</h2>
+
+<button onclick="showAll()">All</button>
+<button onclick="show('phone')">Phones</button>
+<button onclick="show('laptop')">Laptops</button>
+
+<hr>
+
+<div id="products"></div>
+
+<hr>
+
+<h3>Cart</h3>
+<ul id="cart"></ul>
+
+<h3>Total: $<span id="total">0</span></h3>
+
+<script>
+
+let products = [
+  { id: 1, name: "iPhone", price: 1000, type: "phone" },
+  { id: 2, name: "Samsung", price: 800, type: "phone" },
+  { id: 3, name: "MacBook", price: 2000, type: "laptop" }
+];
+
+let cart = [];
+
+function render(list) {
+  let box = document.getElementById("products");
+  box.innerHTML = "";
+
+  list.forEach(p => {
+    box.innerHTML += `
+      <div>
+        ${p.name} - $${p.price}
+        <button onclick="add(${p.id})">Add</button>
+      </div>
+    `;
+  });
+}
+
+function add(id) {
+  let p = products.find(x => x.id === id);
+  cart.push(p);
+  updateCart();
+}
+
+function remove(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+function updateCart() {
+  let box = document.getElementById("cart");
+  box.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach((x, i) => {
+    total += x.price;
+
+    box.innerHTML += `
+      <li>
+        ${x.name} - $${x.price}
+        <button onclick="remove(${i})">X</button>
+      </li>
+    `;
+  });
+
+  document.getElementById("total").innerText = total;
+}
+
+function show(type) {
+  render(products.filter(p => p.type === type));
+}
+
+function showAll() {
+  render(products);
+}
+
+render(products);
+
+</script>
+
+</body>
+</html>
+
+97.	Create a password manager where:
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Manager</title>
+</head>
+<body>
+
+<h2>🔐 Password Manager</h2>
+
+<input id="site" placeholder="Site">
+<input id="pass" placeholder="Password">
+<button onclick="save()">Save</button>
+
+<hr>
+
+<input id="search" placeholder="Search site" oninput="render()">
+
+<ul id="list"></ul>
+
+<script>
+
+let data = JSON.parse(localStorage.getItem("pw")) || [];
+
+function save() {
+  let site = document.getElementById("site").value;
+  let pass = document.getElementById("pass").value;
+
+  if (!site || !pass) return;
+
+  data.push({ site, pass });
+
+  localStorage.setItem("pw", JSON.stringify(data));
+
+  document.getElementById("site").value = "";
+  document.getElementById("pass").value = "";
+
+  render();
+}
+
+function remove(index) {
+  data.splice(index, 1);
+  localStorage.setItem("pw", JSON.stringify(data));
+  render();
+}
+
+function render() {
+  let list = document.getElementById("list");
+  let search = document.getElementById("search").value.toLowerCase();
+
+  list.innerHTML = "";
+
+  data
+    .filter(x => x.site.toLowerCase().includes(search))
+    .forEach((x, i) => {
+      list.innerHTML += `
+        <li>
+          ${x.site} - ${x.pass}
+          <button onclick="remove(${i})">X</button>
+        </li>
+      `;
+    });
+}
+
+render();
+
+</script>
+
+</body>
+</html>
+
+98.	Create a responsive dashboard that visualizes data using charts generated from JavaScript arrays.
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+
+<h2>📊 Dashboard</h2>
+
+<div id="chart"></div>
+
+<script>
+
+let data = [10, 25, 40, 15, 30];
+
+function renderChart() {
+  let chart = document.getElementById("chart");
+  chart.innerHTML = "";
+
+  data.forEach(value => {
+    chart.innerHTML += `
+      <div style="margin:5px;">
+        <div style="
+          width:${value * 10}px;
+          height:20px;
+          background:blue;
+          color:white;
+        ">
+          ${value}
+        </div>
+      </div>
+    `;
+  });
+}
+
+renderChart();
+
+</script>
+
+</body>
+</html>
+
+99.	Create a project management system where users can:
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Project Manager Fixed</title>
+</head>
+<body>
+
+<h2>📁 Project Management</h2>
+
+<input id="projectName" placeholder="Project name">
+<button onclick="addProject()">Add Project</button>
+
+<hr>
+
+<div id="projects"></div>
+
+<script>
+
+let projects = [];
+
+function addProject() {
+  let name = document.getElementById("projectName").value;
+  if (name.trim() === "") return;
+
+  projects.push({
+    name: name,
+    tasks: []
+  });
+
+  document.getElementById("projectName").value = "";
+  render();
+}
+
+function addTask(index) {
+  let task = prompt("Enter task:");
+
+  if (!task || task.trim() === "") return;
+
+  projects[index].tasks.push({
+    name: task,
+    done: false
+  });
+
+  render();
+}
+
+function toggleTask(pIndex, tIndex) {
+  projects[pIndex].tasks[tIndex].done =
+    !projects[pIndex].tasks[tIndex].done;
+
+  render();
+}
+
+function progress(project) {
+  if (project.tasks.length === 0) return 0;
+
+  let done = 0;
+
+  project.tasks.forEach(t => {
+    if (t.done) done++;
+  });
+
+  return Math.round((done / project.tasks.length) * 100);
+}
+
+function render() {
+  let box = document.getElementById("projects");
+  box.innerHTML = "";
+
+  projects.forEach((p, i) => {
+    box.innerHTML += `
+      <div style="border:1px solid black; padding:10px; margin:10px;">
+        <h3>${p.name}</h3>
+
+        <p>Progress: ${progress(p)}%</p>
+
+        <button onclick="addTask(${i})">➕ Add Task</button>
+
+        <ul>
+          ${p.tasks.map((t, j) => `
+            <li onclick="toggleTask(${i},${j})"
+                style="cursor:pointer; ${t.done ? 'text-decoration:line-through' : ''}">
+              ${t.name}
+            </li>
+          `).join("")}
+        </ul>
+      </div>
+    `;
+  });
+}
+
+</script>
+
+</body>
+</html>
+
+100.	Create a flight reservation interface where:
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flight Reservation</title>
+  <style>
+    .seat {
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      display: inline-block;
+      text-align: center;
+      line-height: 40px;
+      border: 1px solid black;
+      cursor: pointer;
+    }
+
+    .selected {
+      background: green;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h2>✈️ Flight Seat Reservation</h2>
+
+<div id="seats"></div>
+
+<h3>Total Price: $<span id="total">0</span></h3>
+
+<script>
+
+let selectedSeats = [];
+let pricePerSeat = 50;
+
+// create seats
+function renderSeats() {
+  let box = document.getElementById("seats");
+  box.innerHTML = "";
+
+  for (let i = 1; i <= 20; i++) {
+    let isSelected = selectedSeats.includes(i);
+
+    box.innerHTML += `
+      <div class="seat ${isSelected ? "selected" : ""}"
+           onclick="toggleSeat(${i})">
+        ${i}
+      </div>
+    `;
+  }
+
+  updateTotal();
+}
+
+function toggleSeat(seat) {
+  if (selectedSeats.includes(seat)) {
+    selectedSeats = selectedSeats.filter(s => s !== seat);
+  } else {
+    selectedSeats.push(seat);
+  }
+
+  renderSeats();
+}
+
+function updateTotal() {
+  document.getElementById("total").textContent =
+    selectedSeats.length * pricePerSeat;
+}
+
+renderSeats();
+
+</script>
+
+</body>
+</html>
+
+
